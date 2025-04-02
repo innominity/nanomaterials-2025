@@ -61,17 +61,14 @@ if __name__ == "__main__":
     df_prepare_transpose = df_prepare_transpose[df_prepare_transpose['target'] != 9495]
 
     # удаляем группу так как это просто номер курицы бройлера
-    print('Удаление старой колонки "group"')
-    if 'group' in df_prepare_transpose.columns:
-        df_prepare_transpose.drop(columns=['group'], inplace=True)
-
-    if 'group' in df_prepare.columns:
-        df_prepare.drop(columns=['group'], inplace=True)
+    print('Переименование старой колонки "group" -> "number"')
+    df_prepare_transpose = df_prepare_transpose.rename(columns={'group': 'number'})
+    df_prepare = df_prepare.rename(columns={'group': 'number'})
 
     # Заменяем в развернутом наборе данных строку с 
     df_prepare = df_prepare.rename(columns={'type_of_bacterium': 'species'})
     df_prepare_docs = df_prepare.merge(df_species.rename(columns={'name': 'species', 'id': 'id_species'}), on=['species'], how='left')
-    df_prepare = df_prepare_docs[['target', 'id_species', 'count']]
+    df_prepare = df_prepare_docs[['target', 'number', 'id_species', 'count']]
 
     print('Приводим в нужную стрктуру target -> group, count -> colonies')
     df_prepare = df_prepare.rename(columns={'target': 'group', 'count': 'colonies'})
