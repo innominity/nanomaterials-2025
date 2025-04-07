@@ -12,6 +12,7 @@ dvc = {extras = ["s3"], version = "^3.59.1"}
 openpyxl = "^3.1.5"
 data = "^0.4"
 scikit-learn = "^1.6.1"
+scipy = "^1.15.2"
 
 
 [build-system]
